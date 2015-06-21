@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template/modeloSistema.xhtml">
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:messages autoUpdate="true" closable="true"/>
+			<h1>#{cadastroUsuarioBean.existente ? "Edição de Usuário" : "Novo Usuário"}</h1>
+			
+			<f:metadata>
+				<o:viewParam name="usuario" value="#{cadastroUsuarioBean.usuario}"/>
+				<f:event listener="#{cadastroUsuarioBean.inicializar}" type="preRenderView"></f:event>
+			</f:metadata>
+			
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/usuarios/CadastroUsuarios" />
+					<p:separator/>
+					<p:commandButton value="Salvar" action="#{cadastroUsuarioBean.salvarUsuario}" 
+						update="@form" />			
+
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/usuarios/PesquisaUsuarios" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<p:tabView style="margin-top: 20px">
+
+				<p:tab title="Dados Pessoais">
+
+					<p:panelGrid id="painel" style="margin-top: 10px; width: 100%"
+						columns="2" columnClasses="rotulo">
+
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome" size="50" value="#{cadastroUsuarioBean.usuario.nome}"
+							label="Nome" />
+
+						<p:outputLabel value="Sexo" for="sexo" />
+						<p:selectOneRadio id="sexo" styleClass="sem-bordas"
+							value="#{cadastroUsuarioBean.usuario.sexo}" label="Sexo">
+							<f:selectItem itemValue="M" itemLabel="Masculino" />
+							<f:selectItem itemValue="F" itemLabel="Feminino" />
+						</p:selectOneRadio>
+
+						<p:outputLabel value="Data de Nascimento" for="data" />
+						<p:calendar id="data" pattern="dd/MM/yyyy" 
+							value="#{cadastroUsuarioBean.usuario.dataNascimento}"
+							label="Data de Nascimento" />
+
+						<p:outputLabel value="Tipo" for="tipo" />
+						<p:selectOneRadio id="tipo" styleClass="sem-bordas"
+							value="#{cadastroUsuarioBean.usuario.tipo}"
+							label="Tipo">
+							<f:selectItem itemValue="Aluno" itemLabel="Aluno" />
+							<f:selectItem itemValue="Professor" itemLabel="Professor" />
+						</p:selectOneRadio>
+
+						<p:outputLabel value="Telefone" for="telefone" />
+						<p:inputMask id="telefone" size="20" mask="(99) 9999-9999"
+							value="#{cadastroUsuarioBean.usuario.telefone}"
+							maxlength="12" />
+
+						<p:outputLabel value="Responsável" for="responsavel" />
+						<p:inputText id="responsavel" size="40" 
+							value="#{cadastroUsuarioBean.usuario.responsavel}" />
+
+						<p:outputLabel value="Deficiência" for="deficiencia" />
+						<p:selectOneMenu id="deficiencia" styleClass="sem-bordas"
+							value="#{cadastroUsuarioBean.usuario.deficiencia.id}" filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione uma Deficiência" />
+							<f:selectItems value="#{cadastroUsuarioBean.comboDeficiencia}" var="defi"
+								itemValue="#{defi.id}" itemLabel="#{defi.nome}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+
+				</p:tab>
+
+				<p:tab title="Dados de Login">
+				
+					<p:panelGrid id="painelLogin" style="margin-top: 10px; width: 100%"
+						columns="2" columnClasses="rotulo">
+						
+						<p:outputLabel value="Nome de Usuário" for="usu"/>
+						<p:inputText id="usu" size="50" maxlength="30"
+							value="#{cadastroUsuarioBean.usuario.nomeUsuario}"
+							label="Nome de Usuário"/>
+						
+						<p:outputLabel value="Senha" for="senha"/>
+						<p:password id="senha" size="20" promptLabel="Por favor, insira a senha"
+							weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte"
+							value="#{cadastroUsuarioBean.usuario.senha}"
+							label="Senha"/>
+							
+					</p:panelGrid>
+
+				</p:tab>
+
+			</p:tabView>
+			
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

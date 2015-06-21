@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/modeloSistema.xhtml">
+
+	<ui:define name="corpo">
+		<h:form id="formBotoes">
+			<h1>Pesquisa Deficiências</h1>
+			<p:messages autoUpdate="true" closable="true"/>
+			<p:toolbar style="margin-top: 20px">
+				
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" action="#{pesquisaDeficienciaBean.pesquisar}"/>
+				</p:toolbarGroup>
+			
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/deficiencias/CadastroDeficiencia" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+		</h:form>
+
+
+		<h:form id="formTabela">
+			<p:dataTable id="deficienciaTable" style="margin-top: 20px"
+				paginator="true" rows="6" emptyMessage="Nenhum registro encontrado" 
+				value="#{pesquisaDeficienciaBean.listaDeficiencia}" var="defi" widgetVar="tabeladef"
+				paginatorAlwaysVisible="false">
+				
+				<f:facet name="header">
+					<h:outputText value="Lista de Deficiências"/>
+				</f:facet>
+
+				<p:column headerText="Código" width="10%" style="text-align: center">
+					<h:outputText value="#{defi.id}" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{defi.nome}" />
+				</p:column>
+
+				<p:column width="10%" style="text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/deficiencias/CadastroDeficiencia" >
+						<f:param name="deficiencia" value="#{defi.id}"/>
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="confirmacaoExclusao.show();">
+						<f:setPropertyActionListener
+							target="#{pesquisaDeficienciaBean.deficiencia}" value="#{defi}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog widgetVar="confirmacaoExcluir" header="Confirmação de Exclusão"
+				message="Deseja realmente excluir esta deficiência?">
+				
+				<p:commandButton value="Sim" action="#{deficienciaBean.excluirDeficiencia}"
+					oncomplete="confirmacaoExcluir.hide();" update="deficienciaTable"/>
+				<p:button value="Não" onclick="confirmacaoExcluir.hide(); return false;"/>
+			
+			</p:confirmDialog>
+			
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

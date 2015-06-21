@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/modeloSistema.xhtml">
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+
+			<h1>Pesquisa Instituição</h1>
+			
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" action="#{pesquisaInstituicaoBean.pesquisar}" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/instituicoes/CadastroInstituicao" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<p:dataTable id="instituicaoTable" style="margin-top: 20px"
+				paginator="true" rows="10" paginatorAlwaysVisible="false"
+				emptyMessage="Nenhum registro encontrado" paginatorPosition="bottom"
+				value="#{pesquisaInstituicaoBean.listaInstituicoes}" var="insti">
+				
+				<p:column headerText="Código" width="10%">
+					<h:outputText value="#{insti.codigo}"/>
+				</p:column>
+				
+				<p:column headerText="Razão Social">
+					<h:outputText value="#{insti.razaoSocial}"/>
+				</p:column>
+				
+				<p:column headerText="Nome Fantasia">
+					<h:outputText value="#{insti.nomeFantasia}"/>
+				</p:column>
+				
+				<p:column headerText="CNPJ" width="15%">
+					<h:outputText value="#{insti.cnpj}"/>
+				</p:column>
+				
+				<p:column headerText="Telefone" width="10%">
+					<h:outputText value="#{insti.telefone}"/>
+				</p:column>
+				
+				<p:column width="10%">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/instituicoes/CadastroInstituicao">
+						<f:param name="instituicao" value="#{insti.codigo}"/>
+					</p:button>
+
+				</p:column>
+				
+						
+			</p:dataTable>
+			
+	
+
+
+		</h:form>
+
+	</ui:define>
+
+
+
+
+
+
+</ui:composition>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template/modeloSistema.xhtml">
+
+		<ui:define name="corpo">
+			<h:form id="frm">
+			<p:messages autoUpdate="true" closable="true"/>
+			
+			<h1>#{cadastroInstituicaoBean.existente ? "Edição de Instituição" : "Nova Instituição"}</h1>
+			
+			<f:metadata>
+				<o:viewParam name="instituicao" value="#{cadastroInstituicaoBean.instituicao}"/>
+				<o:viewParam name="instituicao" value="#{cadastroInstituicaoBean.instituicao.editando}"></o:viewParam>
+			</f:metadata>
+			
+				<p:toolbar style="margin-top: 20px">
+					<p:toolbarGroup>
+						<p:button value="Novo" outcome="/instituicoes/CadastroInstituicao" />
+						<p:separator/>
+						<p:commandButton value="Salvar" action="#{cadastroInstituicaoBean.salvar}"
+							update="@form" />
+					</p:toolbarGroup>
+	
+					<p:toolbarGroup align="right">
+						<p:button value="Pesquisa" outcome="/instituicoes/PesquisaInstituicao" />
+					</p:toolbarGroup>
+	
+				</p:toolbar>
+				
+				<p:tabView style="margin-top: 20px">
+				
+					<p:tab title="Dados Pessoais">
+						
+						<p:panelGrid id="painelDadosPessoais" style="margin-top: 10px; width: 100%"
+							columns="2" columnClasses="rotulo">
+					
+							<p:outputLabel value="Razão Social" for="razao"/>
+							<p:inputText id="razao" size="50" value="#{cadastroInstituicaoBean.instituicao.razaoSocial}"
+								label="Razão Social" />
+							
+							<p:outputLabel value="Nome Fantasia" for="fantasia"/>
+							<p:inputText id="fantasia" size="50" value="#{cadastroInstituicaoBean.instituicao.nomeFantasia}" />
+							
+							<p:outputLabel value="CNPJ" for="cnpj"/>
+							<p:inputMask id="cnpj" size="20" mask="99.999.999/9999-99" 
+								value="#{cadastroInstituicaoBean.instituicao.cnpj}"
+								label="CNPJ" />
+							
+							<p:outputLabel value="Inscrição Estadual" for="inscricaoEstadual"/>
+							<p:inputText id="inscricaoEstadual" size="40" 
+								value="#{cadastroInstituicaoBean.instituicao.inscricaoEstadual}" />
+							
+							<p:outputLabel value="Telefone" for="fone"/>
+							<p:inputMask id="fone" size="10" mask="(99) 99999-9999"
+								value="#{cadastroInstituicaoBean.instituicao.telefone}"  />
+							
+							<p:outputLabel value="E-mail" for="email"/>
+							<p:inputText id="email" size="40" value="#{cadastroInstituicaoBean.instituicao.email}"  />
+						
+					
+						</p:panelGrid>
+						
+					</p:tab>
+					
+					<p:tab title="Endereço">
+					
+						<p:panelGrid id="painelEndereco" columns="2" style="margin-top: 10px; width: 100%"
+							columnClasses="rotulo">
+						
+							<p:outputLabel value="Logradouro" for="logradouro"/>
+							<p:inputText id="logradouro" size="40"
+								value="#{cadastroInstituicaoBean.instituicao.logradouro}"  />
+							
+							<p:outputLabel value="Número" for="numero"/>
+							<p:inputText id="numero" size="10"
+								value="#{cadastroInstituicaoBean.instituicao.numero}"  />
+							
+							<p:outputLabel value="Complemento" for="complemento"/>
+							<p:inputText id="complemento" size="40"
+								value="#{cadastroInstituicaoBean.instituicao.complemento}"  />
+							
+							<p:outputLabel value="Bairro" for="bairro"/>
+							<p:inputText id="bairro" size="20" 
+								value="#{cadastroInstituicaoBean.instituicao.bairro}" />
+							
+							<p:outputLabel value="Cidade" for="cidade"/>
+							<p:inputText id="cidade" size="20" 
+								value="#{cadastroInstituicaoBean.instituicao.cidade}" />
+						
+						</p:panelGrid>
+					
+					</p:tab>
+					
+					<p:tab title="Complementares">
+					
+						<p:panelGrid id="painelComplementares" columns="2" style="margin-top: 10px; width: 100%"
+							columnClasses="rotulo">
+						
+							<p:outputLabel value="Nome diretor de ensino" for="diretor"/>
+							<p:inputText id="diretor" size="50"
+								value="#{cadastroInstituicaoBean.instituicao.nomeDiretor}"  />
+							
+							<p:outputLabel value="Logotipo" for="logotipo"/>
+							<p:fileUpload id="logotipo" cancelLabel="Cancelar" 
+								value="#{cadastroInstituicaoBean.instituicao.logotipo}" />
+							
+						</p:panelGrid>
+					
+					</p:tab>
+				
+				</p:tabView>
+				
+			</h:form>
+		</ui:define>
+
+
+
+
+
+
+</ui:composition>

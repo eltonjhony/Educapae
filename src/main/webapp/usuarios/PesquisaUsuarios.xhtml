@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/modeloSistema.xhtml">
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+
+			<h1>Pesquisa Usuários</h1>
+			<p:messages autoUpdate="true" closable="true"/>
+			<f:metadata>
+				<f:event listener="#{cadastroUsuarioBean.inicializar}" type="preRenderView"/>
+			</f:metadata>
+			
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" action="#{pesquisaUsuarioBean.pesquisar}"
+						update="@form" process="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/usuarios/CadastroUsuarios" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+			
+			<p:panelGrid id="painel" style="margin-top: 20px; width: 80%"
+				columns="4" columnClasses="rotulo">
+				
+				<f:facet name="header">
+					<h:outputText value="Filtro de Pesquisa"/>
+				</f:facet>
+				<p:outputLabel value="Código" for="codigo"/>
+				<p:inputText id="codigo" size="10"/>
+				
+				<p:outputLabel value="Nome" for="nome"/>
+				<p:autoComplete id="nome" size="50"/>
+				
+				<p:outputLabel value="Tipo" for="tipo"/>
+				<p:selectOneRadio id="tipo" styleClass="sem-bordas">
+					<f:selectItem itemLabel="Aluno"/>
+					<f:selectItem itemLabel="Professor"/>
+				</p:selectOneRadio>
+				
+				<p:outputLabel value="Tipo Deficiência" for="deficiencia"/>
+				<p:selectOneMenu id="deficiencia" styleClass="sem-bordas">
+					<f:selectItem itemLabel="Selecione uma deficiência"/>
+					<f:selectItems value="#{pesquisaUsuarioBean.todasDeficiencias}"
+						var="defi" itemValue="#{defi}" itemLabel="#{defi.nome}"/>
+				</p:selectOneMenu>
+			
+			</p:panelGrid>
+
+			<p:dataTable id="usuariosTable" style="margin-top: 20px"
+				paginator="true" rows="10" paginatorAlwaysVisible="false"
+				emptyMessage="Nenhum registro encontrado" paginatorPosition="bottom"
+				value="#{pesquisaUsuarioBean.listaUsuarios}" var="usuario">
+				
+				<f:facet name="header">
+					<h:outputText value="Lista de Usuários"/>
+				</f:facet>
+				
+				<p:column headerText="Código" width="10%">
+					<h:outputText value="#{usuario.id}"/>
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<h:outputText value="#{usuario.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Sexo" width="10%">
+					<h:outputText value="#{usuario.sexo}"/>
+				</p:column>
+				
+				<p:column headerText="Data Nascimento" width="15%">
+					<h:outputText value="#{usuario.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Tipo" width="10%">
+					<h:outputText value="#{usuario.tipo}"/>
+				</p:column>
+				
+				<p:column headerText="Telefone" width="15%">
+					<h:outputText value="#{usuario.telefone}"/>
+				</p:column>
+			
+				<p:column width="10%">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/usuarios/CadastroUsuarios">
+						<f:param name="usuario" value="#{usuario.id}"/>
+					</p:button>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="dialogExclusao.show();" update=":frm:dialogExcluir">
+						<f:setPropertyActionListener target="#{pesquisaUsuarioBean.usuario}" value="#{usuario}"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog id="dialogExcluir" widgetVar="dialogExclusao" 
+				message="Deseja realmente excluir este Usuário?" header="Exclusão de Usuário">
+			
+				<p:commandButton value="Sim" action="#{usuarioBean.excluir}"
+					process="@this" update=":frm:usuariosTable"
+					oncomplete="dialogExclusao.hide();"/>
+				<p:commandButton value="Não" onclick="dialogExclusao.hide(); return false;" />
+			
+			</p:confirmDialog>
+			
+		</h:form>
+
+	</ui:define>
+
+
+
+
+
+
+</ui:composition>

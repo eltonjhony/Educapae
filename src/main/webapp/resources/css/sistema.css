@@ -1,0 +1,85 @@
+@CHARSET "UTF-8";
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	font-weight: normal;
+}
+
+header {
+	padding: 5px 0px;
+	margin-bottom: 20px;
+	height: 30px;
+	background: linear-gradient(#0095da, #004869);
+	border-bottom: 1px solid #cacaca;
+	box-shadow: 0 0 7px #888;
+	height: 30px;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+	font-size: 13px !important;
+} 
+
+.ajax-status{
+	position: fixed;
+	right: 10px;
+	top: 55px;
+	width: 35px;
+	height: 35px;
+}
+
+.rotulo{
+	width: 150px;
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px;
+}
+
+.sem-bordas tr, .sem-bordas td {
+	border: none !important;
+	padding: 1px !important;
+}
+
+.ui-selectoneradio td label{
+	padding-right: 10px;
+}
+
+.logo {
+	font-size: 24px;
+	font-family: sans-serif, Helvetica;
+	font-weight: bold;
+	font: bolder;
+	color: white;
+}
+
+#conteudo {
+	padding: 0px 8px
+}
+
+footer{
+	height: 160px;
+	background: linear-gradient(#0095da, #004869);
+	
+}
+
+
+/* Menu sistema inicio */
+.menu-sistema {
+    border: 0px !important;
+    padding: 0px !important;
+    background: none !important;
+}
+
+.menu-sistema .ui-menu-parent > a .ui-menuitem-text, .menu-sistema > .ui-menu-list > .ui-menuitem > a > .ui-menuitem-text {
+    color: #ffffff !important;
+}
+
+.menu-sistema .ui-icon-triangle-1-s {
+    background: url(#{resource['images:seta-para-baixo.png']}) no-repeat;
+}
+/* Menu sistema fim */

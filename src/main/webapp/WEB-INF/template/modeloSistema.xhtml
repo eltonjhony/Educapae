@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Educapae</title>
+	<h:outputStylesheet library="css" name="sistema.css" />
+</h:head>
+	
+<h:body>
+
+	<header>
+		<p:outputLabel value="EDUCAPAE" styleClass="logo"
+			style="padding: 20px;" />
+			
+		
+		<div style="float: right; margin-right: 110px">
+		
+			<div style="margin-right: 140px; height: 30px; line-height: 3px; 
+					float: left;">
+				<h:link outcome="/Home.xhtml" >
+					<h3 style="color: white">Página Inicial</h3>
+				</h:link>
+		
+		</div>
+				
+				<span style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
+				<h:outputText value="Olá usuário!" style="color: white"/>
+				</span>
+				
+				<h:form style="display: inline-block">
+					<p:menubar styleClass="menu-sistema">
+						<p:submenu label="Cadastros">
+							<p:menuitem value="Deficiências" outcome="/deficiencias/PesquisaDeficiencias"/>
+							<p:menuitem value="Usuários" outcome="/usuarios/PesquisaUsuarios"/>
+							<p:menuitem value="Instituição" outcome="/instituicoes/PesquisaInstituicao"/>
+						</p:submenu>
+						<p:menuitem value="Sair" />
+					</p:menubar>
+				</h:form>
+			</div>
+			<div style="clear: both"></div>
+			
+	</header>
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage library="images" name="loading.gif" />
+	</p:dialog>
+
+
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<footer>
+		<br/>
+		<h1 style="color: white; margin-left: 30px">EDUCAPAE LOGO</h1>
+		<h3 style="color: white; margin-left: 300px"><a href="">Termos de privacidade</a></h3>
+		<p:separator style="color:white"/>
+		<h4 style="text-align: center; margin-top: 40px; color: white">
+		Educapae - Sistema de apoio a alunos com necessidades especiais - <a style="color: white"
+			href="www.apaesantacruz.org.br/" target="_blank">www.apaesantacruz.org.nbr</a></h4>
+	</footer>
+
+</h:body>
+</html>
